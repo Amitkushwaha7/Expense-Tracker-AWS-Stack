@@ -1,6 +1,6 @@
 # Personal Expense Tracker - AWS Cloud Project
 
-![AWS Architecture](https://via.placeholder.com/800x400?text=Personal+Expense+Tracker+AWS+Architecture)
+![AWS Architecture](ArchitectureDiagram\architecturegif.com.gif)
 
 ## Project Overview
 Personal Expense Tracker is a cloud-based application that helps users track and manage their personal expenses. The project demonstrates how to deploy a Flask web application on AWS infrastructure using EC2 for hosting, RDS for database storage, and CloudWatch for monitoring and alerts.
