@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 20px;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 900px;
+        }
+
+        .card {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2 class="text-center mb-4">Personal Expense Tracker</h2>
+
+        <!-- Add Expense Card -->
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Add New Expense</h5>
+            </div>
+            <div class="card-body">
+                <form action="/add" method="POST">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" name="title" placeholder="Description" required>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="number" step="0.01" class="form-control" name="amount" placeholder="Amount ($)"
+                                required>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-select" name="category">
+                                <option value="Food">Food</option>
+                                <option value="Transport">Transport</option>
+                                <option value="Utilities">Utilities</option>
+                                <option value="Entertainment">Entertainment</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-success w-100">Add</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Expenses List -->
+        <div class="card shadow-sm">
+            <div class="card-header">
+                <h5 class="mb-0">My Expenses</h5>
+            </div>
+            <div class="card-body p-0">
+                <table class="table table-striped mb-0">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Description</th>
+                            <th>Category</th>
+                            <th>Amount</th>
+                            <th class="text-end">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for expense in expenses %}
+                        <tr>
+                            <td>{{ expense.date.strftime('%Y-%m-%d') }}</td>
+                            <td>{{ expense.title }}</td>
+                            <td><span class="badge bg-secondary">{{ expense.category }}</span></td>
+                            <td class="fw-bold">${{ "%.2f"|format(expense.amount) }}</td>
+                            <td class="text-end">
+                                <!-- Edit Button trigger modal -->
+                                <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
+                                    data-bs-target="#editModal" data-id="{{ expense.id }}"
+                                    data-title="{{ expense.title }}" data-amount="{{ expense.amount }}"
+                                    data-category="{{ expense.category }}">
+                                    Edit
+                                </button>
+                                <a href="/delete/{{ expense.id }}" class="btn btn-sm btn-outline-danger"
+                                    onclick="return confirm('Are you sure?')">Delete</a>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="5" class="text-center text-muted">No expenses found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Expense</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editForm" method="POST">
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <input type="text" class="form-control" id="edit-title" name="title" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Amount</label>
+                            <input type="number" step="0.01" class="form-control" id="edit-amount" name="amount"
+                                required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Category</label>
+                            <select class="form-select" id="edit-category" name="category">
+                                <option value="Food">Food</option>
+                                <option value="Transport">Transport</option>
+                                <option value="Utilities">Utilities</option>
+                                <option value="Entertainment">Entertainment</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const editModal = document.getElementById('editModal');
+        editModal.addEventListener('show.bs.modal', function (event) {
+            // Button that triggered the modal
+            const button = event.relatedTarget;
+
+            // Extract info from data-* attributes
+            const id = button.getAttribute('data-id');
+            const title = button.getAttribute('data-title');
+            const amount = button.getAttribute('data-amount');
+            const category = button.getAttribute('data-category');
+
+            // Update the modal's content.
+            const form = document.getElementById('editForm');
+            form.action = '/edit/' + id;
+
+            document.getElementById('edit-title').value = title;
+            document.getElementById('edit-amount').value = amount;
+            document.getElementById('edit-category').value = category;
+        });
+    </script>
+</body>
+
+</html>
