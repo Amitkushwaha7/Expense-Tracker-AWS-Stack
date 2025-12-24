@@ -1,33 +1,36 @@
-# Personal Expense Tracker
+# 💸 Expense Tracker App
 
-A simple and efficient web application to track your daily expenses. Built with Flask (Python) and Bootstrap.
+A simple and efficient tool to help you track your daily spending. Built with Python (Flask) and a clean web interface, this app makes it easy to manage your personal finances.
 
-## Features
-- **Add Expenses**: Quickly record transactions with a title, amount, and category.
-- **View History**: See a clean list of all your past expenses.
-- **Edit & Update**: Modify details of any transaction easily.
-- **Delete**: Remove entries that are no longer needed.
-- **Categorization**: Organize spending into categories like Food, Transport, Utilities, etc.
+## ⭐ Key Features
 
-## Tech Stack
-- **Backend**: Python (Flask)
-- **Database**: SQLite (Local) / PostgreSQL (Cloud Support)
-- **Frontend**: HTML5, CSS3, Bootstrap 5
+*   **Add Expenses**: collaborative tracking of where your money goes (Groceries, Rent, etc.).
+*   **Edit & Update**: Made a mistake? Quickly update any expense detail.
+*   **Delete Records**: Remove duplicate or incorrect entries.
+*   **Smart Filtering**: Sort your expenses by **Category** (e.g., Food, Travel) or **Date Range** to see exactly what you spent and when.
+*   **Summary View**: Instantly see the **Total Records** and **Total Amount Spent** based on your current filters.
 
-## How to Run Locally
-1. **Clone the repository** (if applicable) or navigate to the project folder.
-2. **Install Dependencies**:
-   ```bash
-   pip install -r requirements.txt
-   ```
-3. **Run the Application**:
-   ```bash
-   python app.py
-   ```
-4. **Open in Browser**:
-   Visit `http://127.0.0.1:5000`
+## 🚀 How to Run
 
-## Future Improvements
-- Cloud Database Integration (AWS RDS)
-- Cloud Hosting (AWS EC2)
-- User Authentication
+1.  **Install Requirements**:
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+2.  **Start the App**:
+    ```bash
+    python app.py
+    ```
+
+3.  **Open in Browser**:
+    Go to [http://127.0.0.1:5000](http://127.0.0.1:5000)
+
+## 📂 Project Overview
+
+*   **`app.py`**: The heart of the application, handling all the logic.
+*   **`templates/`**: Contains the web pages (List, Add, Edit).
+*   **`static/`**: Holds the styles and design assets.
+*   **`expense.db`**: Your local database storing all expense records (created automatically).
+
+---
+*Manage your money, simply.*

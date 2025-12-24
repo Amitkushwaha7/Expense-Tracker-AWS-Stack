@@ -18,3 +18,5 @@ instance/
 # IDE settings
 .vscode/
 .idea/
+
+app.log
